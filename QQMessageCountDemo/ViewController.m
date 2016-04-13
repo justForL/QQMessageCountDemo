@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "LJCuteView.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    LJCuteView  *cv = [[LJCuteView alloc]initWithPoint:CGPointMake(20, self.view.bounds.size.height - 50) superView:self.view];
+    
+    cv.bubbleWidth = 35;
+    cv.bubbleColor = [UIColor colorWithRed:0 green:0.722 blue:1 alpha:1];
+    [cv setUp];
+    
+    cv.bubbleLabel.text = @"999";
+    
 }
 
 - (void)didReceiveMemoryWarning {

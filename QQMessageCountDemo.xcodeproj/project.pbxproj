@@ -13,6 +13,7 @@
 		18857E831CBE9958004DACD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18857E811CBE9958004DACD5 /* Main.storyboard */; };
 		18857E851CBE9958004DACD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18857E841CBE9958004DACD5 /* Assets.xcassets */; };
 		18857E881CBE9958004DACD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18857E861CBE9958004DACD5 /* LaunchScreen.storyboard */; };
+		18857E921CBEA2FE004DACD5 /* LJCuteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18857E911CBEA2FE004DACD5 /* LJCuteView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		18857E841CBE9958004DACD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18857E871CBE9958004DACD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18857E891CBE9958004DACD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18857E901CBEA2FE004DACD5 /* LJCuteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJCuteView.h; sourceTree = "<group>"; };
+		18857E911CBEA2FE004DACD5 /* LJCuteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJCuteView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		18857E771CBE9958004DACD5 /* QQMessageCountDemo */ = {
 			isa = PBXGroup;
 			children = (
+				18857E8F1CBEA2DC004DACD5 /* Class */,
 				18857E7B1CBE9958004DACD5 /* AppDelegate.h */,
 				18857E7C1CBE9958004DACD5 /* AppDelegate.m */,
 				18857E7E1CBE9958004DACD5 /* ViewController.h */,
@@ -77,6 +81,15 @@
 				18857E791CBE9958004DACD5 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18857E8F1CBEA2DC004DACD5 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				18857E901CBEA2FE004DACD5 /* LJCuteView.h */,
+				18857E911CBEA2FE004DACD5 /* LJCuteView.m */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,6 +118,7 @@
 		18857E6D1CBE9958004DACD5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = LJ;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Apple;
 				TargetAttributes = {
@@ -151,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18857E801CBE9958004DACD5 /* ViewController.m in Sources */,
+				18857E921CBEA2FE004DACD5 /* LJCuteView.m in Sources */,
 				18857E7D1CBE9958004DACD5 /* AppDelegate.m in Sources */,
 				18857E7A1CBE9958004DACD5 /* main.m in Sources */,
 			);
