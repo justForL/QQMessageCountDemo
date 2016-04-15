@@ -23,6 +23,7 @@
     cv.bubbleWidth = 35;
     cv.bubbleColor = [UIColor colorWithRed:0 green:0.722 blue:1 alpha:1];
     [cv setUp];
+    cv.viscosity = 20;
     
     cv.bubbleLabel.text = @"999";
     
