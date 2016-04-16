@@ -43,6 +43,8 @@
     //记录原始backView的位置信息
     CGRect    _oldBackFrame;
     CGPoint   _oldBackPoint;
+    
+    UIBezierPath   *_cutePath;
 }
 
 
@@ -91,6 +93,9 @@
     _oldBackFrame = _backView.frame;
     _oldBackPoint = _backView.center;
     
+    _backView.hidden = YES;
+    [self addAnimationLikeGameCenter];
+    
     //给frontView添加拖拽手势
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragGestureRecognizer:)];
     [_frontView addGestureRecognizer:pan];
@@ -104,6 +109,9 @@
     if (pan.state == UIGestureRecognizerStateBegan) {
         _backView.hidden = NO;
         _fillCuteColor = self.bubbleColor;
+        //移除GameCenter动画特效
+        [self removeAnimationLickGameCenter];
+        
     }else if (pan.state == UIGestureRecognizerStateChanged) {
         _frontView.center = fingerPoint;
         
@@ -126,6 +134,7 @@
             _frontView.center = _oldBackPoint;
         } completion:^(BOOL finished) {
             
+            [self addAnimationLikeGameCenter];
         }];
         
     }
@@ -165,19 +174,62 @@
     
     _backView.layer.cornerRadius = _r1;
     
-    UIBezierPath *cutePath = [UIBezierPath bezierPath];
-    [cutePath moveToPoint:_pointA];
-    [cutePath addQuadCurveToPoint:_pointD controlPoint:_pointO];
-    [cutePath addLineToPoint:_pointC];
-    [cutePath addQuadCurveToPoint:_pointB controlPoint:_pointP];
-    [cutePath moveToPoint:_pointA];
+    _cutePath = [UIBezierPath bezierPath];
+    [_cutePath moveToPoint:_pointA];
+    [_cutePath addQuadCurveToPoint:_pointD controlPoint:_pointO];
+    [_cutePath addLineToPoint:_pointC];
+    [_cutePath addQuadCurveToPoint:_pointB controlPoint:_pointP];
+    [_cutePath moveToPoint:_pointA];
     
     if (_backView.hidden == NO) {
-        _shapeLayer.path = [cutePath CGPath];
+        _shapeLayer.path = [_cutePath CGPath];
         _shapeLayer.fillColor = [_fillCuteColor CGColor];
         //如果使用addSubLayer  会导致重绘的图形盖住_fontView的数字
         [self.containerView.layer insertSublayer:_shapeLayer below:_frontView.layer];
     }
     
+}
+/**
+ *  类似gamecenter的动画特效
+ */
+- (void)addAnimationLikeGameCenter {
+    //关键帧动画
+    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    /*
+     kCAFillModeRemoved 这个是默认值，也就是说当动画开始前和动画结束后，动画对layer都没有影响，动画结束后，layer会恢复到之前的状态
+     
+     kCAFillModeForwards 当动画结束后，layer会一直保持着动画最后的状态
+     
+     kCAFillModeBackwards 在动画开始前，只需要将动画加入了一个layer，layer便立即进入动画的初始状态并等待动画开始。
+     
+     kCAFillModeBoth 这个其实就是上面两个的合成.动画加入后开始之前，layer便处于动画初始状态，动画结束后layer保持动画最后的状态
+
+     */
+    pathAnimation.calculationMode = kCAAnimationPaced;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = NO;
+    pathAnimation.repeatCount = INFINITY;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    pathAnimation.duration = 5.0;
+    
+    CGMutablePathRef curvesPath = CGPathCreateMutable();
+    CGRect circleContainer = CGRectInset(_frontView.frame, _frontView.bounds.size
+                                         .width /2 - 3, _frontView.bounds.size.width / 2 - 3);
+    
+    CGPathAddEllipseInRect(curvesPath, NULL, circleContainer);
+    
+    pathAnimation.path = curvesPath;
+    
+    CGPathRelease(curvesPath);
+    //做圆形轨迹移动
+    [_frontView.layer addAnimation:pathAnimation forKey:@"myCircleAnimation"];
+    
+    
+}
+/**
+ *  移除所有动画特效
+ */
+- (void)removeAnimationLickGameCenter {
+    [_frontView.layer removeAllAnimations];
 }
 @end
